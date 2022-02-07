@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/composite/reusable">
+
+<h:head>
+    <title>New Record</title>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+    <h:outputStylesheet name="form.css" library="css"/>
+
+</h:head>
+<h:body>
+    <p:growl id="idgrowl" life="2000"/>
+    <t:navbar></t:navbar>
+
+    <div class="wrapper">
+        <h2>Create Record</h2>
+        <h:form class="form-record">
+
+            <h:panelGrid class="grid" columns="3">
+                <h:outputText class="label" value="Code:"/>
+                <h:inputText class="input" id="codeInputText"
+                             required="true"
+                             requiredMessage="Required!"
+                             value="#{recordBean.record.recordID.isoCode}">
+                </h:inputText>
+                <h:message class="message" id="codeMessage" for="codeInputText"/>
+
+                <h:outputText class="label" value="Date:"/>
+                <h:inputText class="input" id="dateInputText"
+                             required="true"
+                             requiredMessage="Required!"
+                             converter="javax.faces.DateTime"
+                             value="#{recordBean.record.recordID.date}"
+                             converterMessage="Invalid Format!">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+                <h:message class="message" id="dateMessage" for="dateInputText"/>
+
+                <h:outputText class="label" value="Total Cases:"/>
+                <h:inputText class="input" id="TCInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.totalCases}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="TCMessage" for="TCInputText"/>
+
+                <h:outputText class="label" value="New Cases:"/>
+                <h:inputText class="input" id="NCInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.newCases}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="NCMessage" for="NCInputText"/>
+
+                <h:outputText class="label" value="New Cases Smoothed:"/>
+                <h:inputText class="input" id="NCSInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.newCasesSmoothed}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="NCSMessage" for="NCSInputText"/>
+
+                <h:outputText class="label" value="Total Deaths:"/>
+                <h:inputText class="input" id="TDInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.totalDeaths}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="TDMessage" for="TDInputText"/>
+
+                <h:outputText class="label" value="New Deaths:"/>
+                <h:inputText class="input" id="NDInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.newDeaths}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="NDMessage" for="NDInputText"/>
+
+                <h:outputText class="label" value="New Deaths Smoothed:"/>
+                <h:inputText class="input" id="NDSInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.newDeathsSmoothed}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="NDSMessage" for="NDSInputText"/>
+
+                <h:outputText class="label" value="Reproduction Rate:"/>
+                <h:inputText class="input" id="RRInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.reproductionRate}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="RRMessage" for="RRInputText"/>
+
+                <h:outputText class="label" value="New Tests:"/>
+                <h:inputText class="input" id="NTInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.newTests}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="NTMessage" for="NTInputText"/>
+
+                <h:outputText class="label" value="Total Tests:"/>
+                <h:inputText class="input" id="TTInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.totalTests}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="TTMessage" for="TTInputText"/>
+
+                <h:outputText class="label" value="Stringency Index"/>
+                <h:inputText class="input" id="SIInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.stringencyIndex}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="SIMessage" for="SIInputText"/>
+
+                <h:outputText class="label" value="Population:"/>
+                <h:inputText class="input" id="PInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.population}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="PMessage" for="PInputText"/>
+
+                <h:outputText class="label" value="Median Age:"/>
+                <h:inputText class="input" id="MAInputText"
+                             converter="javax.faces.Double"
+                             value="#{recordBean.record.medianAge}"
+                             converterMessage="Insert number!">
+                </h:inputText>
+                <h:message class="message" id="MAMessage" for="MAInputText"/>
+            </h:panelGrid>
+
+            <div class="container">
+                <h:commandButton update="idgrowl" class="button"
+                                 action="#{recordBean.createRecord()}" value="Create">
+                    <f:ajax execute="codeInputText dateInputText TCInputText NCInputText
+                            NCSInputText TDInputText NDInputText NDSInputText RRInputText
+                            NTInputText TTInputText SIInputText PInputText MAInputText"
+                            render="codeMessage dateMessage TCMessage NCMessage
+                            NCSMessage TDMessage NDMessage NDSMessage RRMessage
+                            NTMessage TTMessage SIMessage PMessage MAMessage"/>
+                </h:commandButton>
+                <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
+            </div>
+
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -3,7 +3,6 @@ package com.covidstats.model;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")

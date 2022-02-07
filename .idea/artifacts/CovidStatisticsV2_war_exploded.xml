@@ -16,12 +16,9 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.2" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:8.0" />
-          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.1.7" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.1.7" />
-          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
-          <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.1" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:eclipselink:2.7.9" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:jakarta.persistence:2.2.3" />
           <element id="library" level="project" name="Maven: org.eclipse.persistence:commonj.sdo:2.1.1" />

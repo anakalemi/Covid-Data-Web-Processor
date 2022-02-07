@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/composite/reusable">
+
+<h:head>
+    <title>Edit Country</title>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+    <h:outputStylesheet name="form.css" library="css"/>
+</h:head>
+<h:body>
+    <p:growl id="idgrowl" life="2000"/>
+    <t:navbar></t:navbar>
+    <div class="wrapper">
+        <h2>Edit Country</h2>
+        <h:form class="form">
+
+            <h:panelGrid class="grid" columns="2">
+                <h:outputText class="label" value="Code:"/>
+                <h:inputText class="input" id="codeInputText" disabled="true"
+                             value="#{countryBean.country.isoCode}">
+                </h:inputText>
+                <h:outputText class="label" value="Continent:"/>
+                <h:inputText class="input" id="continentInputText"
+                             value="#{countryBean.country.continent}">
+                </h:inputText>
+                <h:outputText class="label" value="Country:"/>
+                <h:inputText class="input" id="countryInputText"
+                             value="#{countryBean.country.location}">
+                </h:inputText>
+            </h:panelGrid>
+
+            <div class="container">
+                <h:commandButton update="idgrowl" class="button"
+                                 action="#{countryBean.updateCountry()}"
+                                 value="Update">
+                </h:commandButton>
+                <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
+            </div>
+
+        </h:form>
+    </div>
+</h:body>
+</html>

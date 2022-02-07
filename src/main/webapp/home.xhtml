@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/composite/reusable">
+
+<h:head>
+    <title>Covid Data</title>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+</h:head>
+<h:body>
+    <p:growl id="idgrowl" life="2000"/>
+    <t:navbar></t:navbar>
+    <h:form>
+
+        <p:dataTable id="covidData" var="record" value="#{recordBean.allRecords}"
+                     paginator="true" rows="10"
+                     resizableColumns="true"
+                     selection="#{recordBean.record}" rowKey="#{record.recordID}"
+
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                     {PreviousPageLink} {PageLinks} {NextPageLink}
+                     {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     paginatorPosition="top"
+                     rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+
+            <f:facet name="header">
+                <div class="ui-g-12">
+
+                    <div class="ui-g-4">
+                        <h:form>
+                            <h:selectOneMenu class="dropdown-menu scrollable-dropdown"  value = "#{recordBean.filterType}" style="margin-bottom: 10px;">
+                                <f:selectItem itemValue = "none" itemLabel = "No Filter" />
+                                <f:selectItem itemValue = "continent" itemLabel = "Continent" />
+                                <f:selectItem itemValue = "country" itemLabel = "Country" />
+                                <f:selectItem itemValue = "code" itemLabel = "Code" />
+                                <f:selectItem itemValue = "date" itemLabel = "Date" />
+                            </h:selectOneMenu>
+                            <h:inputText class="form-control" id="searchInputText" autocomplete="off" value="#{recordBean.filterValue}" style="margin-bottom: 10px;"/>
+                            <h:commandButton action="#{recordBean.filter}" value="Search"/>
+                        </h:form>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <p:commandButton id="toggler" type="button" value="Columns"/>
+                        <p:columnToggler datasource="covidData" trigger="toggler"/>
+                    </div>
+
+                    <div class="ui-g-4">
+                        <p:commandButton action="countries-home.xhtml" value="Countries"/>
+                        <p:commandButton action="#{recordBean.prepareCreate()}" value="Create"/>
+                        <p:commandButton update="idgrowl" action="#{recordBean.prepareEdit()}" value="Edit"/>
+                        <p:commandButton update="idgrowl covidData" action="#{recordBean.deleteRecord()}" value="Delete"/>
+                    </div>
+                </div>
+            </f:facet>
+
+            <p:column selectionMode="single" width="16px; text-align:center"/>
+
+            <p:column sortBy="#{record.country.isoCode}" headerText="Code">
+                <h:outputText value="#{record.country.isoCode}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.country.continent}" headerText="Continent">
+                <h:outputText value="#{record.country.continent}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.country.location}" headerText="Country">
+                <h:outputText value="#{record.country.location}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.recordID.date}" headerText="Date">
+                <h:outputText value="#{record.recordID.dateToString}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.totalCases}" headerText="Total Cases" visible="false">
+                <h:outputText value="#{record.totalCases}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newCases}" headerText="New Cases">
+                <h:outputText value="#{record.newCases}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newCasesSmoothed}" headerText="New Cases Smoothed" visible="false">
+                <h:outputText value="#{record.newCasesSmoothed}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.totalDeaths}" headerText="Total Deaths" visible="false">
+                <h:outputText value="#{record.totalDeaths}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newDeaths}" headerText="New Deaths">
+                <h:outputText value="#{record.newDeaths}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newCasesSmoothed}" headerText="New Deaths Smoothed" visible="false">
+                <h:outputText value="#{record.newCasesSmoothed}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.reproductionRate}" headerText="Reproduction Rate" visible="false">
+                <h:outputText value="#{record.reproductionRate}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newTests}" headerText="New Tests">
+                <h:outputText value="#{record.newTests}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.totalTests}" headerText="Total Tests" visible="false">
+                <h:outputText value="#{record.totalTests}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.stringencyIndex}" headerText="Stringency Index">
+                <h:outputText value="#{record.stringencyIndex}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.population}" headerText="Population">
+                <h:outputText value="#{record.population}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.medianAge}" headerText="Median Age">
+                <h:outputText value="#{record.medianAge}"/>
+            </p:column>
+
+            <p:column sortBy="#{record.newDeathsPerCase}" headerText="New Deaths Per Case" visible="false">
+                <h:outputText value="#{record.newDeathsPerCase}"/>
+            </p:column>
+        </p:dataTable>
+
+    </h:form>
+</h:body>
+</html>

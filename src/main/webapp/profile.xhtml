@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/composite/reusable">
+
+<h:head>
+    <title>Profile</title>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+    <h:outputStylesheet name="form.css" library="css"/>
+</h:head>
+<h:body>
+    <p:growl id="idgrowl" life="2000"/>
+    <t:navbar></t:navbar>
+    <div class="wrapper">
+        <h2>#{userBean.currentUser.name} #{userBean.currentUser.surname}</h2>
+        <h:form class="form">
+
+            <h:panelGrid class="grid" columns="3">
+
+                <h:outputText class="label" value="Name:"/>
+                <h:inputText class="input" id="nameInputText"
+                             required="true"
+                             requiredMessage="Required!"
+                             value="#{userBean.currentUser.name}"
+                             validatorMessage="Exceeding limit!">
+                    <f:validateLength maximum="20"/>
+                </h:inputText>
+                <h:message class="message" id="nameMessage" for="nameInputText"/>
+
+                <h:outputText class="label" value="Surname:"/>
+                <h:inputText class="input" id="surnameInputText"
+                             value="#{userBean.currentUser.surname}"
+                             validatorMessage="Exceeding limit!">
+                    <f:validateLength maximum="20"/>
+                </h:inputText>
+                <h:message class="message" id="surnameMessage" for="surnameInputText"/>
+
+                <h:outputText class="label" value="E-mail:"/>
+                <h:inputText class="input" id="emailInputText" disabled="true"
+                             validatorMessage="Cannot be edited!"
+                             value="#{userBean.currentUser.email}">
+                </h:inputText>
+                <h:message class="message" id="emailMessage" for="emailInputText"/>
+
+                <h:outputText class="label" value="Password:"/>
+                <h:inputSecret class="input" id="passwordInputSecret" required="true"
+                               requiredMessage="Required!"
+                               value="#{userBean.currentUser.password}">
+                </h:inputSecret>
+                <h:message class="message" id="passwordMessage" for="passwordInputSecret"/>
+            </h:panelGrid>
+
+            <div class="container">
+                <h:commandButton update="idgrowl" class="button"
+                                 action="#{userBean.updateProfile()}" value="Update">
+                    <f:ajax execute="nameInputText surnameInputText passwordInputSecret"
+                            render=
+                                    "nameMessage surnameMessage passwordMessage"/>
+                </h:commandButton>
+                <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
+            </div>
+
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/composite/reusable">
+
+<h:head>
+    <title>Countries</title>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+</h:head>
+<h:body>
+    <p:growl id="idgrowl" life="2000"/>
+    <t:navbar></t:navbar>
+    <h:form>
+
+        <p:dataTable id="countryData" var="country" value="#{countryBean.allCountries}"
+                     paginator="true" rows="10"
+                     resizableColumns="true"
+                     selection="#{countryBean.country}" rowKey="#{country.isoCode}"
+
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                     {PreviousPageLink} {PageLinks} {NextPageLink}
+                     {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     paginatorPosition="top"
+                     rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+
+            <f:facet name="header">
+                <div class="ui-g-12">
+
+                    <div class="ui-g-4">
+                        <p:commandButton action="#{countryBean.prepareCreate()}" value="Create"/>
+                        <p:commandButton update="idgrowl" action="#{countryBean.prepareEdit()}" value="Edit"/>
+                        <p:commandButton update="idgrowl countryData" action="#{countryBean.deleteCountry()}" value="Delete"/>
+                    </div>
+                </div>
+            </f:facet>
+
+            <p:column selectionMode="single" width="16px; text-align:center"/>
+
+            <p:column sortBy="#{country.isoCode}" headerText="Code">
+                <h:outputText value="#{country.isoCode}"/>
+            </p:column>
+
+            <p:column sortBy="#{country.continent}" headerText="Continent">
+                <h:outputText value="#{country.continent}"/>
+            </p:column>
+
+            <p:column sortBy="#{country.location}" headerText="Country">
+                <h:outputText value="#{country.location}"/>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+</h:body>
+</html>

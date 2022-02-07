@@ -2,7 +2,7 @@ package com.covidstats.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Table(name = "countries")
@@ -21,6 +21,9 @@ public class Country implements Serializable {
     private String continent;
     @Column(name = "location")
     private String location;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
+    List<Record> recordList;
 
     public Country() {
     }
@@ -53,6 +56,14 @@ public class Country implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Record> getRecordList() {
+        return recordList;
+    }
+
+    public void setRecordList(List<Record> recordList) {
+        this.recordList = recordList;
     }
 
     @Override

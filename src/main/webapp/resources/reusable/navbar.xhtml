@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+<h:head>
+    <h:outputStylesheet name="navbar.css" library="css"/>
+</h:head>
+<h:body>
+
+    <cc:interface></cc:interface>
+    <p:growl id="idgrowl" life="2000"/>
+
+    <cc:implementation>
+    <div class="header">
+        <h1 class="logo"><h:outputLink class="link" value="home.xhtml">Covid Data</h:outputLink></h1>
+        <ul class="main-nav">
+            <li><h:outputLink class="link" value="home.xhtml">Home</h:outputLink></li>
+            <li><h:outputLink class="link" value="login.xhtml"
+                              disabled="#{userBean.hasCurrentUser()}">Log in</h:outputLink></li>
+            <li><h:outputLink class="link" value="profile.xhtml"
+                              disabled="#{!userBean.hasCurrentUser()}">Profile</h:outputLink></li>
+            <li><h:outputLink class="link" value="#{userBean.logout()}" update="idgrowl"
+                              disabled="#{!userBean.hasCurrentUser()}">Log out</h:outputLink></li>
+        </ul>
+    </div>
+    </cc:implementation>
+
+</h:body>
+</html>
