@@ -1,7 +1,5 @@
 package com.covidstats.data;
 
-import com.covidstats.controller.CountryController;
-import com.covidstats.controller.RecordController;
 import com.covidstats.model.Record;
 import com.covidstats.model.RecordID;
 import com.covidstats.model.Country;
@@ -18,7 +16,8 @@ public class CSVDataReader {
 
     private final String filePath;
     private Map<Integer, String> indexHeaderMap;
-    private final Set<String> countryCodes = new HashSet<>();
+    private final List<Record> allRecords = new ArrayList<>();
+    private final List<Country> allCountries = new ArrayList<>();
 
     enum Type {
         NUMERIC,
@@ -66,14 +65,7 @@ public class CSVDataReader {
                 country.setIsoCode((String) getData(row, "iso_code", Type.TEXT));
                 country.setContinent((String) getData(row, "continent", Type.TEXT));
                 country.setLocation((String) getData(row, "location", Type.TEXT));
-
-                boolean countryExists = countryCodes.stream()
-                        .anyMatch(c -> c.equals(country.getIsoCode()));
-
-                if (!countryExists) {
-                    CountryController.getInstance().store(country);
-                    countryCodes.add(country.getIsoCode());
-                }
+                allCountries.add(country);
 
                 RecordID recordID = new RecordID();
                 recordID.setIsoCode(country.getIsoCode());
@@ -93,8 +85,7 @@ public class CSVDataReader {
                 record.setPopulation((Double) getData(row, "population", Type.NUMERIC));
                 record.setMedianAge((Double) getData(row, "median_age", Type.NUMERIC));
                 record.setNewDeathsPerCase();
-
-                RecordController.getInstance().store(record);
+                allRecords.add(record);
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -108,9 +99,7 @@ public class CSVDataReader {
 
         switch (type) {
             case NUMERIC -> {
-                if (row.get(index).trim().isEmpty()) {
-                    data = 0.0;
-                } else {
+                if (!row.get(index).trim().isEmpty()) {
                     data = Double.parseDouble(row.get(index).trim());
                 }
             }
@@ -141,4 +130,11 @@ public class CSVDataReader {
                 .collect(Collectors.toMap(Function.identity(), headers.stream().map(String::trim).toList()::get));
     }
 
+    public List<Record> getAllRecords() {
+        return allRecords;
+    }
+
+    public List<Country> getAllCountries() {
+        return allCountries;
+    }
 }

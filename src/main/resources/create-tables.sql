@@ -10,7 +10,7 @@ CREATE TABLE users (
         CONSTRAINT pk_users_email PRIMARY KEY
 );
 
-insert into USERS (NAME, SURNAME, PASSWORD, EMAIL)
+INSERT INTO USERS (NAME, SURNAME, PASSWORD, EMAIL)
 VALUES ('Ana', 'Kalemi', '1', 'anakalemi@unyt.edu.al');
 
 DROP TABLE countries;
@@ -28,18 +28,18 @@ CREATE TABLE records (
                                     REFERENCES countries
                                         ON DELETE CASCADE,
                             reg_date            DATE,
-                            total_cases         NUMBER(10),
-                            new_cases           NUMBER(10),
-                            new_cases_smoothed  NUMBER(10),
-                            total_deaths        NUMBER(10),
-                            new_deaths          NUMBER(10),
-                            new_deaths_smoothed NUMBER(10),
-                            reproduction_rate   NUMBER(5),
-                            new_tests           NUMBER(10),
-                            total_tests         NUMBER(10),
-                            stringency_index    NUMBER(3),
-                            population          NUMBER(10),
-                            median_age          NUMBER(4),
-                            new_deaths_per_case NUMBER(10),
+                            total_cases         NUMBER(12,2),
+                            new_cases           NUMBER(12,2),
+                            new_cases_smoothed  NUMBER(12,2),
+                            total_deaths        NUMBER(12,2),
+                            new_deaths          NUMBER(12,2),
+                            new_deaths_smoothed NUMBER(12,2),
+                            reproduction_rate   NUMBER(7,2),
+                            new_tests           NUMBER(12,2),
+                            total_tests         NUMBER(12,2),
+                            stringency_index    NUMBER(5,2),
+                            population          NUMBER(12,2),
+                            median_age          NUMBER(6,2),
+                            new_deaths_per_case NUMBER(12,2),
                             CONSTRAINT pk_records_id PRIMARY KEY ( iso_code, reg_date )
 );

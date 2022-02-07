@@ -178,7 +178,7 @@ public class Record implements Serializable {
     }
 
     public void setNewDeathsPerCase() {
-        if(newCases != Double.MIN_VALUE && newDeaths != Double.MIN_VALUE && newCases != 0) {
+        if(newCases != null && newDeaths != null && newCases != 0) {
             newDeathsPerCase = newDeaths / newCases;
         }
     }

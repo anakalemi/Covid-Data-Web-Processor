@@ -21,6 +21,14 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ojdbc7.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <version>1.2</version>
