@@ -1,6 +1,8 @@
 package com.covidstats.beans;
 
+import com.covidstats.controller.CountryController;
 import com.covidstats.controller.RecordController;
+import com.covidstats.model.Country;
 import com.covidstats.model.Filter;
 import com.covidstats.model.Record;
 import com.covidstats.utils.FilterUtil;
@@ -18,13 +20,13 @@ import java.util.List;
 @SessionScoped
 public class RecordBean implements Serializable {
 
-    @ManagedProperty(value="#{userBean}")
+    @ManagedProperty(value = "#{userBean}")
     private UserBean userBean;
 
     private List<Record> allRecords;
     private Record record = new Record();
 
-    @ManagedProperty(value="#{filterBean}")
+    @ManagedProperty(value = "#{filterBean}")
     private FilterBean filterBean;
 
     public RecordBean() {
@@ -109,6 +111,12 @@ public class RecordBean implements Serializable {
 
     public String createRecord() {
         try {
+            Country country = CountryController.getInstance().show(record.getRecordID().getIsoCode());
+            if (country == null) {
+                country = new Country(record.getRecordID().getIsoCode(), null, null);
+                CountryController.getInstance().store(country);
+            }
+            record.setCountry(country);
             RecordController.getInstance().store(record);
             loadList();
             new GrowlMessage().showInfo("Record Created");

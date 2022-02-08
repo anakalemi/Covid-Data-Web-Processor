@@ -70,7 +70,14 @@ public class Record implements Serializable {
     }
 
     public RecordID getRecordID() {
+        if(recordID == null){
+            recordID = new RecordID();
+        }
         return recordID;
+    }
+
+    public void setRecordID(RecordID recordID) {
+        this.recordID = recordID;
     }
 
     public Country getCountry() {
