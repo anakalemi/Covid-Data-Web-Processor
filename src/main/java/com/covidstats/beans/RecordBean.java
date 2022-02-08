@@ -1,6 +1,7 @@
 package com.covidstats.beans;
 
 import com.covidstats.controller.RecordController;
+import com.covidstats.model.Filter;
 import com.covidstats.model.Record;
 import com.covidstats.utils.FilterUtil;
 import com.covidstats.utils.GrowlMessage;
@@ -23,8 +24,8 @@ public class RecordBean implements Serializable {
     private List<Record> allRecords;
     private Record record = new Record();
 
-    private String filterType = "";
-    private String filterValue = "";
+    @ManagedProperty(value="#{filterBean}")
+    private FilterBean filterBean;
 
     public RecordBean() {
     }
@@ -58,22 +59,6 @@ public class RecordBean implements Serializable {
         this.record = record;
     }
 
-    public String getFilterType() {
-        return filterType;
-    }
-
-    public void setFilterType(String filterType) {
-        this.filterType = filterType;
-    }
-
-    public String getFilterValue() {
-        return filterValue;
-    }
-
-    public void setFilterValue(String filterValue) {
-        this.filterValue = filterValue;
-    }
-
     public boolean hasRecords() {
         return !allRecords.isEmpty();
     }
@@ -82,12 +67,24 @@ public class RecordBean implements Serializable {
         allRecords = RecordController.getInstance().index();
     }
 
+    public FilterBean getFilterBean() {
+        return filterBean;
+    }
+
+    public void setFilterBean(FilterBean filterBean) {
+        this.filterBean = filterBean;
+    }
+
     public String filter() {
-        loadList();
-        allRecords = new FilterUtil(allRecords, filterType, filterValue).filter();
+        allRecords = new FilterUtil(filterBean.filter).filter();
         return Routes.HOME.getUrl();
     }
 
+    public String clearFilter() {
+        loadList();
+        filterBean.setFilter(new Filter());
+        return Routes.HOME.getUrl();
+    }
 
     public String prepareCreate() {
         if (!userBean.hasCurrentUser()) {

@@ -10,11 +10,35 @@
 <h:head>
     <title>Covid Data</title>
     <h:outputStylesheet name="navbar.css" library="css"/>
+    <h:outputStylesheet name="filter.css" library="css"/>
+
 </h:head>
 <h:body>
     <p:growl id="idgrowl" life="2000"/>
     <t:navbar></t:navbar>
     <h:form>
+
+        <div class="form">
+            <h:panelGrid class="grid" columns="10">
+                <h:commandButton update="covidData" class="button" action="#{recordBean.clearFilter()}"
+                                 value="Clear Filters"/>
+
+                <h:outputText class="label" value="Code:"/>
+                <h:inputText class="input" value="#{filterBean.filter.filterCode}"/>
+                <h:outputText class="label" value="Continent:"/>
+                <h:inputText class="input" value="#{filterBean.filter.filterContinent}"/>
+                <h:outputText class="label" value="Country:"/>
+                <h:inputText class="input" value="#{filterBean.filter.filterCountry}"/>
+                <h:outputText class="label" value="Date:"/>
+                <p:calendar inputStyleClass="dateInput" mode="popup" pattern="yyyy-MM-dd"
+                            autocomplete="off" value="#{filterBean.filter.filterDate}"/>
+
+                <h:commandButton update="covidData" class="button" style="margin-left: 20px;"
+                                 action="#{recordBean.filter()}"
+                                 value="Search"/>
+            </h:panelGrid>
+        </div>
+
 
         <p:dataTable id="covidData" var="record" value="#{recordBean.allRecords}"
                      paginator="true" rows="10"
@@ -30,27 +54,12 @@
 
             <f:facet name="header">
                 <div class="ui-g-12">
-
-                    <div class="ui-g-4">
-                        <h:form>
-                            <h:selectOneMenu class="dropdown-menu scrollable-dropdown"  value = "#{recordBean.filterType}" style="margin-bottom: 10px;">
-                                <f:selectItem itemValue = "none" itemLabel = "No Filter" />
-                                <f:selectItem itemValue = "continent" itemLabel = "Continent" />
-                                <f:selectItem itemValue = "country" itemLabel = "Country" />
-                                <f:selectItem itemValue = "code" itemLabel = "Code" />
-                                <f:selectItem itemValue = "date" itemLabel = "Date" />
-                            </h:selectOneMenu>
-                            <h:inputText class="form-control" id="searchInputText" autocomplete="off" value="#{recordBean.filterValue}" style="margin-bottom: 10px;"/>
-                            <h:commandButton action="#{recordBean.filter}" value="Search"/>
-                        </h:form>
-                    </div>
-
-                    <div class="ui-g-4">
+                    <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-4">
                         <p:commandButton id="toggler" type="button" value="Columns"/>
                         <p:columnToggler datasource="covidData" trigger="toggler"/>
                     </div>
-
-                    <div class="ui-g-4">
+                    <div class="ui-g-12 ui-md-6 ui-lg-4">
                         <p:commandButton action="countries-home.xhtml" value="Countries"/>
                         <p:commandButton action="#{recordBean.prepareCreate()}" value="Create"/>
                         <p:commandButton update="idgrowl" action="#{recordBean.prepareEdit()}" value="Edit"/>

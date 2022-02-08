@@ -31,15 +31,10 @@
                 <h:message class="message" id="codeMessage" for="codeInputText"/>
 
                 <h:outputText class="label" value="Date:"/>
-                <h:inputText class="input" id="dateInputText"
-                             required="true"
-                             requiredMessage="Required!"
-                             converter="javax.faces.DateTime"
-                             value="#{recordBean.record.recordID.date}"
-                             converterMessage="Invalid Format!">
-                    <f:convertDateTime pattern="yyyy-MM-dd"/>
-                </h:inputText>
-                <h:message class="message" id="dateMessage" for="dateInputText"/>
+                <p:calendar inputStyleClass="dateInput" id="dateInput" required="true"
+                            requiredMessage="Required!" autocomplete="off"
+                            value="#{recordBean.record.recordID.date}" mode="popup" pattern="yyyy-MM-dd" />
+                <h:message class="message" id="dateMessage" for="dateInput"/>
 
                 <h:outputText class="label" value="Total Cases:"/>
                 <h:inputText class="input" id="TCInputText"
@@ -141,7 +136,7 @@
             <div class="container">
                 <h:commandButton update="idgrowl" class="button"
                                  action="#{recordBean.createRecord()}" value="Create">
-                    <f:ajax execute="codeInputText dateInputText TCInputText NCInputText
+                    <f:ajax execute="codeInputText dateInput TCInputText NCInputText
                             NCSInputText TDInputText NDInputText NDSInputText RRInputText
                             NTInputText TTInputText SIInputText PInputText MAInputText"
                             render="codeMessage dateMessage TCMessage NCMessage

@@ -1,7 +1,3 @@
-body {
-    background: white !important;
-}
-
 .wrapper {
     margin-top: 80px;
     margin-bottom: 80px;
@@ -55,6 +51,18 @@ body {
 
     font-size: 12px;
     padding: 5px;
+
+}
+
+.dateInput {
+    margin-left: 10px !important;
+    width: 160px;
+    height: 28px;
+    padding: 5px;
+    font-weight: normal;
+    -webkit-border-radius: 0 !important;
+    -webkit-box-shadow: unset !important;
+    border: 1px solid #34495e;
 }
 
 .input:disabled {

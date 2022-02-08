@@ -1,74 +1,56 @@
 package com.covidstats.utils;
 
+import com.covidstats.model.Filter;
 import com.covidstats.model.Record;
 
+import javax.persistence.Query;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FilterUtil {
-    private final String type;
-    private final String value;
-    private List<Record> allRecordsList;
 
-    public FilterUtil(List<Record> allRecordsList, String type, String value) {
-        this.type = type;
-        this.value = value;
-        this.allRecordsList = allRecordsList;
+    private final Filter filter;
+
+    public FilterUtil(Filter filter) {
+        this.filter = filter;
+    }
+
+    private boolean isParameterPresent(String paramValue) {
+        return paramValue != null && !paramValue.trim().isEmpty();
+    }
+
+    private boolean isParameterPresent(Date paramValue) {
+        return paramValue != null;
+    }
+
+    private Query constructFilterQuery() {
+        String ql = "SELECT r FROM Record r JOIN Country c on (r.recordID.isoCode = c.isoCode) WHERE 1 = 1 ";
+        if (isParameterPresent(filter.getFilterCode()))
+            ql += "AND LOWER(c.isoCode) LIKE LOWER(:isoCode)";
+        if (isParameterPresent(filter.getFilterContinent()))
+            ql += "AND LOWER(c.continent) LIKE LOWER(:continent)";
+        if (isParameterPresent(filter.getFilterCountry()))
+            ql += "AND LOWER(c.location) LIKE LOWER(:location)";
+        if (isParameterPresent(filter.getFilterDate()))
+            ql += "AND r.recordID.date = :date";
+
+        Query query = EntityManagerProvider.getEntityManager().createQuery(ql);
+
+        if (isParameterPresent(filter.getFilterCode()))
+            query.setParameter("isoCode", filter.getFilterCode() + "%");
+        if (isParameterPresent(filter.getFilterContinent()))
+            query.setParameter("continent", filter.getFilterContinent() + "%");
+        if (isParameterPresent(filter.getFilterCountry()))
+            query.setParameter("location", filter.getFilterCountry() + "%");
+        if (isParameterPresent(filter.getFilterDate()))
+            query.setParameter("date", filter.getFilterDate());
+
+        return query;
     }
 
     public List<Record> filter() {
-        if ("continent".equals(type)) {
-            allRecordsList = filterByContinent();
-        } else if ("country".equals(type)) {
-            allRecordsList = filterByCountry();
-        } else if ("code".equals(type)) {
-            allRecordsList = filterByIsoCode();
-        } else if ("date".equals(type)) {
-            allRecordsList = filterByDate();
-        }
-
-        return allRecordsList;
+        Query query = constructFilterQuery();
+        return (List<Record>) query.getResultList();
     }
-
-    public List<Record> filterByContinent() {
-        if(value.trim().isEmpty()){
-            return allRecordsList;
-        }
-        return allRecordsList.stream()
-                .filter(r -> r.getCountry().getContinent() != null)
-                .filter(r -> r.getCountry().getContinent().toUpperCase().contains(value.toUpperCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Record> filterByCountry() {
-        if(value.trim().isEmpty()){
-            return allRecordsList;
-        }
-        return allRecordsList.stream()
-                .filter(r -> r.getCountry().getLocation() != null)
-                .filter(r -> r.getCountry().getLocation().toUpperCase().contains(value.toUpperCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Record> filterByIsoCode() {
-        if(value.trim().isEmpty()){
-            return allRecordsList;
-        }
-        return allRecordsList.stream()
-                .filter(r -> r.getCountry().getIsoCode() != null)
-                .filter(r -> r.getCountry().getIsoCode().toUpperCase().contains(value.toUpperCase()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Record> filterByDate() {
-        if(value.trim().isEmpty()){
-            return allRecordsList;
-        }
-        return allRecordsList.stream()
-                .filter(r -> r.getRecordID().getDateToString() != null)
-                .filter(r -> r.getRecordID().getDateToString().toUpperCase().contains(value.toUpperCase()))
-                .collect(Collectors.toList());
-    }
-
 
 }
