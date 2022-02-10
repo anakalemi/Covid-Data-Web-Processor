@@ -19,11 +19,8 @@
     background-color: rgba(113, 141, 170, 0.62);
 }
 
-.footer-buttons {
-    margin-top: 20px;
-}
-
 .button {
+    cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-size: 14px;
@@ -39,7 +36,9 @@
     color: #34495e;
     border: 1px solid #34495e;
 }
-.button:hover {
+
+.button-active {
+    cursor: pointer;
     background-color: #34495e;
     color: white;
 }
@@ -91,9 +90,8 @@ td:first-child {
 }
 
 .grid {
+    margin: auto;
     margin-top: 30px;
-    margin-bottom: 30px;
-    margin-left: 30px;
     position: center;
 }
 

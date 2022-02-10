@@ -33,13 +33,23 @@
                 <p:calendar inputStyleClass="dateInput" mode="popup" pattern="yyyy-MM-dd"
                             autocomplete="off" value="#{filterBean.filter.filterDate}"/>
 
-                <h:commandButton update="covidData" class="button" style="margin-left: 20px;"
+                <h:commandButton update="covidData" class="button-active button" style="margin-left: 20px;"
                                  action="#{recordBean.filter()}"
                                  value="Search"/>
             </h:panelGrid>
+
+
         </div>
-
-
+        <div style="background: #c4c4c4 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));
+          text-align: center; padding: 10px;">
+            <p:commandButton id="toggler" type="button" value="Choose columns"/>
+            <p:columnToggler datasource="covidData" trigger="toggler"/>
+            <p:commandButton action="countries-home.xhtml" value="Show countries"/>
+            <p:commandButton action="#{recordBean.prepareCreate()}" value="Add record"/>
+            <p:commandButton update="idgrowl" action="#{recordBean.prepareEdit()}" value="Edit record"/>
+            <p:commandButton update="idgrowl covidData" action="#{recordBean.deleteRecord()}"
+                             value="Delete record"/>
+        </div>
         <p:dataTable id="covidData" var="record" value="#{recordBean.allRecords}"
                      paginator="true" rows="10"
                      resizableColumns="true"
@@ -49,24 +59,8 @@
                      {PreviousPageLink} {PageLinks} {NextPageLink}
                      {LastPageLink} {RowsPerPageDropdown}"
                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                     paginatorPosition="top"
+                     paginatorPosition="bottom"
                      rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
-
-            <f:facet name="header">
-                <div class="ui-g-12">
-                    <div class="ui-g-12 ui-md-6 ui-lg-4"></div>
-                    <div class="ui-g-12 ui-md-6 ui-lg-4">
-                        <p:commandButton id="toggler" type="button" value="Columns"/>
-                        <p:columnToggler datasource="covidData" trigger="toggler"/>
-                    </div>
-                    <div class="ui-g-12 ui-md-6 ui-lg-4">
-                        <p:commandButton action="countries-home.xhtml" value="Countries"/>
-                        <p:commandButton action="#{recordBean.prepareCreate()}" value="Create"/>
-                        <p:commandButton update="idgrowl" action="#{recordBean.prepareEdit()}" value="Edit"/>
-                        <p:commandButton update="idgrowl covidData" action="#{recordBean.deleteRecord()}" value="Delete"/>
-                    </div>
-                </div>
-            </f:facet>
 
             <p:column selectionMode="single" width="16px; text-align:center"/>
 

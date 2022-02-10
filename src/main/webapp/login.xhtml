@@ -46,13 +46,13 @@
                 </h:panelGrid>
 
 
-                <div class="container">
-                    <h:commandButton update="idgrowl" class="button" action="#{userBean.login()}" value="Submit">
+                <h:panelGrid class="grid" columns="2">
+                    <h:commandButton update="idgrowl" class="button-active button" action="#{userBean.login()}" value="Submit">
                         <f:ajax execute="emailInputText passwordInputSecret"
                                 render="emailMessage passwordMessage"/>
                     </h:commandButton>
                     <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
-                </div>
+                </h:panelGrid>
             </div>
 
         </h:form>

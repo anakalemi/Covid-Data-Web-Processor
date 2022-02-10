@@ -132,8 +132,8 @@
                 <h:message class="message" id="MAMessage" for="MAInputText"/>
             </h:panelGrid>
 
-            <div class="container">
-                <h:commandButton update="idgrowl" class="button"
+            <h:panelGrid class="grid" columns="2">
+                <h:commandButton update="idgrowl" class="button-active button"
                                  action="#{recordBean.updateRecord()}" value="Update">
                     <f:ajax execute="codeInputText dateInputText TCInputText NCInputText
                             NCSInputText TDInputText NDInputText NDSInputText RRInputText
@@ -143,7 +143,7 @@
                             NTMessage TTMessage SIMessage PMessage MAMessage"/>
                 </h:commandButton>
                 <h:button class="button" outcome="home.xhtml" value="Cancel"/>
-            </div>
+            </h:panelGrid>
 
         </h:form>
     </div>

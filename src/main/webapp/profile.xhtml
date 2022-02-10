@@ -54,15 +54,15 @@
                 <h:message class="message" id="passwordMessage" for="passwordInputSecret"/>
             </h:panelGrid>
 
-            <div class="container">
-                <h:commandButton update="idgrowl" class="button"
+            <h:panelGrid class="grid" columns="2">
+                <h:commandButton update="idgrowl" class="button-active button"
                                  action="#{userBean.updateProfile()}" value="Update">
                     <f:ajax execute="nameInputText surnameInputText passwordInputSecret"
                             render=
                                     "nameMessage surnameMessage passwordMessage"/>
                 </h:commandButton>
                 <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
-            </div>
+            </h:panelGrid>
 
         </h:form>
     </div>

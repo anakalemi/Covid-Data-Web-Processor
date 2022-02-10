@@ -40,12 +40,12 @@
                 <h:message class="message" id="codeMessage" for="codeInputText"/>
             </h:panelGrid>
 
-            <div class="container">
-                <h:commandButton update="idgrowl" class="button"
+            <h:panelGrid class="grid" columns="2">
+                <h:commandButton update="idgrowl" class="button-active button"
                                  action="#{countryBean.createCountry()}" value="Create">
                 </h:commandButton>
                 <h:button class="button" outcome="/home.xhtml" value="Cancel"/>
-            </div>
+            </h:panelGrid>
 
         </h:form>
     </div>

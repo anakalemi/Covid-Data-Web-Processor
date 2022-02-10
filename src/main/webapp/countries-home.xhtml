@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:t="http://java.sun.com/jsf/composite/reusable">
@@ -16,6 +15,15 @@
     <t:navbar></t:navbar>
     <h:form>
 
+
+        <div style="background: #c4c4c4 -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.8)),to(rgba(255,255,255,0)));
+          text-align: center; padding: 10px;">
+            <p:commandButton action="#{countryBean.prepareCreate()}" value="Add country"/>
+            <p:commandButton update="idgrowl" action="#{countryBean.prepareEdit()}" value="Edit country"/>
+            <p:commandButton update="idgrowl countryData" action="#{countryBean.deleteCountry()}"
+                             value="Delete country"/>
+        </div>
+
         <p:dataTable id="countryData" var="country" value="#{countryBean.allCountries}"
                      paginator="true" rows="10"
                      resizableColumns="true"
@@ -25,21 +33,10 @@
                      {PreviousPageLink} {PageLinks} {NextPageLink}
                      {LastPageLink} {RowsPerPageDropdown}"
                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                     paginatorPosition="top"
+                     paginatorPosition="bottom"
                      rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
 
-            <f:facet name="header">
-                <div class="ui-g-12">
-
-                    <div class="ui-g-4">
-                        <p:commandButton action="#{countryBean.prepareCreate()}" value="Create"/>
-                        <p:commandButton update="idgrowl" action="#{countryBean.prepareEdit()}" value="Edit"/>
-                        <p:commandButton update="idgrowl countryData" action="#{countryBean.deleteCountry()}" value="Delete"/>
-                    </div>
-                </div>
-            </f:facet>
-
-            <p:column selectionMode="single" width="16px; text-align:center"/>
+            <p:column selectionMode="single" width="12px; text-align:center"/>
 
             <p:column sortBy="#{country.isoCode}" headerText="Code">
                 <h:outputText value="#{country.isoCode}"/>
