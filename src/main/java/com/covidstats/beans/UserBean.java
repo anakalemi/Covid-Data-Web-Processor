@@ -88,10 +88,9 @@ public class UserBean implements Serializable {
         }
     }
 
-    //TODO bug
     public String logout() {
-//        clearAttributes();
-//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        clearAttributes();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         new GrowlMessage().showInfo("Logged out successfully!");
         return Routes.HOME.getUrl();
     }

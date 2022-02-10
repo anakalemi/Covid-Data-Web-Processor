@@ -22,9 +22,18 @@
             <li><h:outputLink class="link" value="login.xhtml"
                               disabled="#{userBean.hasCurrentUser()}">Log in</h:outputLink></li>
             <li><h:outputLink class="link" value="profile.xhtml"
-                              disabled="#{!userBean.hasCurrentUser()}">Profile</h:outputLink></li>
-            <li><h:outputLink class="link" value="#{userBean.logout()}" update="idgrowl"
-                              disabled="#{!userBean.hasCurrentUser()}">Log out</h:outputLink></li>
+                              disabled="#{!userBean.hasCurrentUser()}">
+                <h:outputText
+                        value="#{userBean.currentUser.name}"
+                        rendered="#{userBean.hasCurrentUser()}"/>
+                <h:outputText
+                        value="Profile"
+                        rendered="#{!userBean.hasCurrentUser()}"/>
+            </h:outputLink></li>
+            <h:form>
+            <li><h:commandLink class="link" action="#{userBean.logout()}" update="idgrowl"
+                               disabled="#{!userBean.hasCurrentUser()}">Log out</h:commandLink></li>
+            </h:form>
         </ul>
     </div>
     </cc:implementation>
