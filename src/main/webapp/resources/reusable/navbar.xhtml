@@ -24,7 +24,7 @@
             <li><h:outputLink class="link" value="profile.xhtml"
                               disabled="#{!userBean.hasCurrentUser()}">
                 <h:outputText
-                        value="#{userBean.currentUser.name}"
+                        value="#{userBean.currentUser.name} #{userBean.currentUser.surname}"
                         rendered="#{userBean.hasCurrentUser()}"/>
                 <h:outputText
                         value="Profile"

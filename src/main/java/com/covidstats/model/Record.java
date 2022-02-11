@@ -190,6 +190,10 @@ public class Record implements Serializable {
         }
     }
 
+    public void setNewDeathsPerCase(Double newDeathsPerCase) {
+        this.newDeathsPerCase = newDeathsPerCase;
+    }
+
     public Double getNewDeathsPerCase() {
         return newDeathsPerCase;
     }
