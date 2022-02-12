@@ -8,12 +8,18 @@ import com.covidstats.model.Record;
 import com.covidstats.utils.FilterUtil;
 import com.covidstats.utils.GrowlMessage;
 import com.covidstats.utils.Routes;
+import com.google.gson.Gson;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.List;
 
 @ManagedBean
@@ -161,6 +167,18 @@ public class RecordBean implements Serializable {
     public String actionReload() {
         loadList();
         return Routes.HOME.getUrl();
+    }
+
+    void getRecords(String input) {
+        try {
+            String url = ((HttpServletRequest) FacesContext.getCurrentInstance()
+                    .getExternalContext().getRequest()).getRequestURI() + input;
+            InputStreamReader reader = new InputStreamReader(new URL(url).openStream());
+            allRecords = (List<Record>) new Gson().fromJson(reader, Record.class);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
