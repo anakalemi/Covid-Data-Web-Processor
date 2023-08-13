@@ -1,55 +1,61 @@
 # Covid Data Web Processor
 
-## Summary
+## Overview
 
-The implementation of an API and web application for reading, displaying, filtering, and editing Covid data taken from
-the repository maintained by Mathieu, Ritchie, Ortiz-Ospina et al. (Mathieu et al, 2021).
+Covid Data Web Processor offers a comprehensive solution for accessing and managing Covid-19 data. Born out of the need
+for a seamless interface to interact with the extensive Covid data, this tool not only provides visualization and filtering capabilities but also enables authorized modifications.
+Whether you're a researcher looking for specific data sets, an administrator aiming to curate the data, or a general
+user keen on understanding the current Covid statistics, the platform provides an intuitive way to navigate
+this information.
 
-The website allows users as well as guests to view and filter the data stored in the database. Registered users of
-the site can also add, update, or delete records, as well as countries. A single public API endpoint
-is also implemented using the REST web services.
+## Features
 
-## Project Design
+- **Guest Access**: Allows guests to view and filter the stored data.
+- **User Access**: Registered users can add, modify, or remove records, as well as country data.
+- **Public API**: Provides a RESTful endpoint for accessing the data.
 
-The project is built using the Java EE
-framework JSF, as well as JPA for connecting to the database. Oracle SQL is used as the SQL
-language and Tomcat as the website’s server.
+## Technical Specifications
 
-The project is object-oriented and built using the MVC pattern (Model-View-Controller) to logically structure the code
-on components that are built to handle specific development aspects of the application.
+- **Framework**: Java EE with JSF.
+- **Database**: JPA for connectivity, utilizing Oracle SQL.
+- **Server**: Tomcat.
+- **Design Patterns**:
+    - **MVC (Model-View-Controller)**: Structuring the code to separate concerns.
+    - **DAO (Data Access Object)**: An abstract interface to the database that masks the details of data access.
 
-Another pattern used is DAO (Data Access Object) which is a pattern that provides an abstract interface to the database.
-By mapping application calls to the persistence layer, DAO provides specific data operations without exposing details of
-the database.
+## Getting Started
 
-## Set Up
+1. **Data Migration**:
+    - The application includes a converter to migrate data from CSV format to the Oracle SQL database, available in
+      the [DBPopulator](https://github.com/anakalemi/Covid-Data-Processor/blob/master/src/main/java/com/covidstats/data/DBPopulator.java)
+      java file.
+    - Prior to data migration, run
+      the [SQL script](https://github.com/anakalemi/Covid-Data-Processor/blob/master/src/main/resources/create-tables.sql)
+      to set up the necessary database tables.
 
-Given that the data is provided in a CSV file, the application has a built-in convertor that handles the migration
-of the records from the CSV format to the Oracle SQL database. It is located
-under [DBPopulator java file](https://github.com/anakalemi/Covid-Data-Processor/blob/master/src/main/java/com/covidstats/data/DBPopulator.java)
+2. **Credentials**:
+    - To leverage the full functionalities as an authorized user:
+        - **Email**: anakalemi@unyt.edu.al
+        - **Password**: 1
 
-Before beginning the data migration process it is sufficient to execute
-the [SQL file](https://github.com/anakalemi/Covid-Data-Processor/blob/master/src/main/resources/create-tables.sql), that
-handles the creation of
-structures of the DB tables necessary for this application.
+## Prerequisites
 
-### Credentials
+Ensure you have the following dependencies installed:
 
-To access the functionalities of an authorized user, find below the credentials:\
-Email: *anakalemi@unyt.edu.al*\
-Password: *1*
+- Java SE 8 or newer.
+- JSF 2.5.
+- Primefaces 8.0.
+- Tomcat 8.5.75. 
+- Oracle SQL 7.0.
 
-## Dependencies
+## Acknowledgments 
 
-Java SE 8 or newer\
-JSF 2.5\
-Primefaces 8.0\
-Tomcat 8.5.75\
-Oracle SQL 7.0
+The Covid dataset is sourced from:
+Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. "A global database of COVID-19 vaccinations." Nat Hum Behav (
+2021). [Link to the Study](https://doi.org/10.1038/s41562-021-01122-8).
 
-## Acknowledgments
+## Preview
 
-Covid Dataset From:
+<img src="images/img.png" alt="Home Page">  
 
-Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations. Nat Hum Behav (2021).\
-https://doi.org/10.1038/s41562-021-01122-8
+---
